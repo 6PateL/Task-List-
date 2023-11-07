@@ -1,0 +1,61 @@
+﻿@model List<TaskListModel>
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Task List
+            </h2>
+        </div>
+    </div>
+    <div class="col-15 text-end">
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Create">Create Tasks</a>
+    </div>
+</div>
+</hr>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th> 
+                Description 
+            </th>
+            <th>
+                Expiration date
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @item.ExpirationDate
+                    @item.DateTime
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="Edit" asp-route-Id="@item.Id">
+                        Edit
+                    </a>
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="Delete" asp-route-Id="@item.Id">
+                        Delete
+                    </a>
+                    @if(item.ExpirationDate == DateTime.Now && item.DateTime == DateTime.Now)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" />
+                        </svg>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
